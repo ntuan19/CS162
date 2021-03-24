@@ -1,14 +1,2 @@
-
-
-
-
-@app.route('/login', methods=['POST'])
-def process_log_in():
-    cur_user = db.session.query(Users).filter(Users.Username==request.form['Username']).first()
-    cur_password = hash_password(request.form['Password'])
-    if cur_user == None or cur_password != current_user.Password:
-        return redirect(url_for('process_log_in'))
-    else:
-        session['Username'] = cur_user.Username
-        flash('Successfully')
-        return redirect(url_for('check_session'))
+def hash_password(users_password): 
+    return hashlib.sha256(users_password.encode()).hexdigest()
