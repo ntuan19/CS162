@@ -1,9 +1,6 @@
 
 
 
-@app.route('/login')
-def log_in():
-    return render_template('login.html')
 
 @app.route('/login', methods=['POST'])
 def process_log_in():
