@@ -1,1 +1,24 @@
 
+
+
+@app.route('/login')
+def log_in():
+    # Go to login template
+    return render_template('login.html')
+
+@app.route('/signup')
+def sign_up():
+    # Go to sign up template
+    return render_template('signup.html')
+
+
+@app.route('/login', methods=['POST'])
+def log_in_process():
+    cur_user = db.session.query(Users).filter(Users.Username==request.form['Username']).first()
+    cur_password = hash_password(request.form['Password'])
+    if cur_user == None or cur_password != current_user.Password:
+        return redirect(url_for('log_in_process'))
+    else:
+        session['Username'] = cur_user.Username
+        flash('Log in successfully!')
+        return redirect(url_for('check_session'))
